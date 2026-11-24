@@ -1,0 +1,9 @@
+# dsh-guard-hide bundle layer：只做「把 Host 行挂进 profile」这一件事。
+#
+# 真正的隐藏逻辑在 client.js（Client 半身）：Host 行本身是一个空插件，
+# 它的作用是让 DSH 认领这个包、把 Client 模块登记进页面模块图。
+#
+# 具体行为由 client.js 里的常量决定，不需要 profile 配置。
+- insert:
+    - id: guard-hide
+      name: dsh-guard-hide

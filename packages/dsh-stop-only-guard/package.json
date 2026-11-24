@@ -1,0 +1,32 @@
+{
+  "name": "dsh-stop-only-guard",
+  "version": "0.2.0",
+  "description": "DSH 插件：当一轮只有 reasoning、没有 text / tool-call、却以 finish.reason.kind=stop 正常结束时，在轮次关闭前用 agent.steer 注入「思考节选 + 补正文」的提示。",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "cordis-plugin",
+    "agent-loop",
+    "stop-only"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

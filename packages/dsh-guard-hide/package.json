@@ -1,0 +1,38 @@
+{
+  "name": "dsh-guard-hide",
+  "version": "0.1.0",
+  "description": "DSH 插件：把 dsh-stop-only-guard 注入的 [stop-only-guard] 补救消息从聊天界面上隐藏，模型照常收到。",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "cordis-plugin",
+    "client-plugin",
+    "chat-ui"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true
+    }
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

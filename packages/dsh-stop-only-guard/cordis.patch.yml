@@ -1,0 +1,5 @@
+# 说明：bundle 层只做「把插件挂进来」这一件事。
+# 具体 config（enabled / 上限 / log）由 profile 的 cordis.patch.yml 按 id 覆盖。
+- insert:
+    - id: dsh-stop-only-guard
+      name: dsh-stop-only-guard
