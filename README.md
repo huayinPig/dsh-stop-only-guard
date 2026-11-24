@@ -134,16 +134,23 @@ Loader 的 patch 方言里，非 `insert` 的 patch 必须命中已存在的行�
 1. 日志里出现 `[stop-only-guard] turn N step M 命中（stop-only …），已注入第 1 次补救（…）`
 2. 会话里立刻多出一条 `[stop-only-guard]` 开头的用户消息，紧接着应当有正常的助手正文
 
-## 跟别的守护插件什么关系
+## 相关讨论与同类插件
 
-不装原创。DSH 生态里已经有一批处理「空轮次 / 空回复」的插件，各管各的形态：
+**这毛病不是孤例。** 公开讨论到今天还开着：
+
+- [DSH Discussion #5466](https://github.com/deepseek-ai/deepseek-harness/discussions/5466)——根因：`llm-deepseek` 判空响应的条件是「块数 0 且 `reason.kind=stop`」，而 reasoning 块本身也算一块。所以「想了 6–9 秒、正文空」被当成「有内容」，`EMPTY_RESPONSE` 不触发，一次重试都不跑，直接记成正常完成。
+- [DSH Discussion #6936](https://github.com/deepseek-ai/deepseek-harness/discussions/6936)——`reasoningEffort: max` 把输出预算全烧在思考上，正文空，回合永远 `max-tokens`。
+- [opencode Issue #48599](https://github.com/anomalyco/opencode/issues/48599)——别的 agent 项目上的同一个现象：内容全在 reasoning 通道，正文空，界面只剩一条空白。
+
+同类插件（不装原创，各管各的形态）：
 
 | 插件 | 管的形态 |
 | --- | --- |
-| `dsh-empty-turn-guard` | `finish=tool-calls` 却没有 tool-call |
+| [`dsh-empty-turn-guard`](https://github.com/Paradox1278/dsh-empty-turn-guard) | 上游声称 `tool_use`，却一个 tool-call 都没发 |
+| [`dsh-early-stop-guard`](https://github.com/pf-sjtu/dsh-early-stop-guard) | 模型只「叙述」接下来要做什么，没真的调用工具 |
 | `dsh-reasoning-only-guard` | 只有 reasoning 时塞一段占位文本（不重新生成） |
 | `dsh-llm-retry` | 请求层面的失败重试（管不到「成功了但没正文」） |
-| **本包** | `finish=stop`、无 text 无 tool-call，且**要模型重新生成正文** |
+| **本包** | `finish=stop`、无 text 无 tool-call，且**要模型接着把正文补出来** |
 
 如果你要的只是「别空白」，`dsh-reasoning-only-guard` 那类就够；本包的差别是**它会让模型接着说**。
 
