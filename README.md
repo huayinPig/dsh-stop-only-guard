@@ -69,7 +69,20 @@ DSH（DeepSeek Harness）插件：把「整轮只在思考里走完、正文是�
 
 两个可以分开装。只装第一个也能救，只是界面上会看见一条 `[stop-only-guard] …` 的用户消息。
 
-## 装法（本地包）
+## 装法
+
+### 最省事：让 DSH 自己装（不碰命令行）
+
+1. 把仓库下下来：绿色 **Code** → **Download ZIP**，解压
+2. 打开 DSH 的 **插件**（Plugins）页 → **添加插件**（Add plugin）
+3. 选解压出来的 `packages\dsh-stop-only-guard` 文件夹
+4. 再来一遍，选 `packages\dsh-guard-hide`
+
+profile 的 `package.json` 和 `cordis.patch.yml` 由 DSH 自己写，不用手改。
+
+两个是分开装的。只装第一个也能救，只是聊天里会看见那条 `[stop-only-guard] …` 消息。
+
+### 手动装（想放进 `vendor` 的时候）
 
 以 profile 目录 `<profile>`（例如 `~/.dsh/profiles/desktop`）为例：
 
